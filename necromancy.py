@@ -9,13 +9,22 @@ class Necromancy():
     def __init__(self):
         #Cemitery Variables
         is_windows = sys.platform.startswith("win")
-        base_caminho = "C:\\cemiterio\\" if is_windows else "/cemiterio/"
+        linux_username = os.environ.get("USER")
+        base_caminho = "C:\\cemiterio\\" if is_windows else f"/home/{linux_username}/cemiterio/"
         self.caminho_cemiterio = os.path.join(base_caminho)
         self.caminho_capelas = os.path.join(base_caminho, "logs")
         self.caminho_venvs = os.path.join(base_caminho, "venvs")
-        self.venvs = {'skeleton':['pyautogui', 'psutil', 'pywin32', 'rich', 'tqdm']}#,
-                    # 'skeleton_knight':[ "pyautogui", "psutil", "pandas", "openpyxl", "pywin32", 'rich', 'tqdm'], 
-                    # 'skeleton_warlord':['pyautogui', 'psutil', 'pandas', 'openpyxl', 'pywin32', 'selenium', 'webdriver_manager', 'beautifulsoup4', 'requests', 'PyMuPDF', 'SpaCy', 'rich', 'tqdm'],
+        if is_windows:
+            self.venvs = {'skeleton':['pyautogui', 'psutil', 'pywin32', 'rich', 'tqdm']}#,
+                        # 'skeleton_knight':[ "pyautogui", "psutil", "pandas", "openpyxl", "pywin32", 'rich', 'tqdm'], 
+                        # 'skeleton_warlord':['pyautogui', 'psutil', 'pandas', 'openpyxl', 'pywin32', 'selenium', 'webdriver_manager', 'beautifulsoup4', 'requests', 'PyMuPDF', 'SpaCy', 'rich', 'tqdm'],
+                        # 'skeleton_mage': ['pandas', 'openpyxl', 'polars', 'rich', 'tqdm'],
+                        # 'skeleton_archer': ['pandas', 'openpyxl', 'PyMuPDF', 'rich', 'tqdm'],
+                        # 'skeleton_shaman': ['django', 'fastapi', 'taipy', 'flask', 'rich', 'tqdm'],}
+        else:
+            self.venvs = {'skeleton':['pyautogui', 'psutil', 'rich', 'tqdm']}#,
+                    # 'skeleton_knight':[ "pyautogui", "psutil", "pandas", "openpyxl", 'rich', 'tqdm'], 
+                    # 'skeleton_warlord':['pyautogui', 'psutil', 'pandas', 'openpyxl', 'selenium', 'webdriver_manager', 'beautifulsoup4', 'requests', 'PyMuPDF', 'SpaCy', 'rich', 'tqdm'],
                     # 'skeleton_mage': ['pandas', 'openpyxl', 'polars', 'rich', 'tqdm'],
                     # 'skeleton_archer': ['pandas', 'openpyxl', 'PyMuPDF', 'rich', 'tqdm'],
                     # 'skeleton_shaman': ['django', 'fastapi', 'taipy', 'flask', 'rich', 'tqdm'],}
@@ -298,7 +307,7 @@ class Log:
             if pathLog is not None:
                 Log.debug = True
                 now = datetime.datetime.now()
-                dateFormat = datetime.datetime.strftime(now, "%Y-%m-%d\\")
+                dateFormat = datetime.datetime.strftime(now, "%Y-%m-%d")
                 Log.pathLogWithDateFormat = os.path.join(pathLog, dateFormat)
                 if not os.path.exists(Log.pathLogWithDateFormat):
                     os.makedirs(Log.pathLogWithDateFormat)
@@ -660,9 +669,9 @@ class CryptoHelper:
                                                             # SKELETONS #
     
     def summon_skeletons(self, nome_robo, caminho_robo, caminho_log):
-        caminho_log = caminho_log + nome_robo
-        caminho_robo = caminho_robo + nome_robo
-
+        caminho_log = os.path.join(caminho_log, nome_robo)
+        caminho_robo = os.path.join(caminho_robo, nome_robo)
+        
         self.cast_magic(self.skeleton_magic)
             
         #.bat
@@ -692,19 +701,19 @@ REM taskkill /IM python.exe /F
 #!/bin/bash
 
 export ROBOT_NAME={nome_robo}/
-export ROBOT_LOG={caminho_log}/"
+export ROBOT_LOG={caminho_log}/
 export INPUTS={caminho_robo}/INPUTS/
 export OUTPUTS={caminho_robo}/OUTPUTS/
-export LOCAL_PATH=/c/LOCAL_ROBOT_FILES/{nome_robo}/
+export LOCAL_PATH={caminho_robo}/LOCAL_ROBOT_FILES/
 
-echo "Variáveis de ambiente OK"
+echo "Variaveis de ambiente OK"
 
-pkill python
-
+pkill python3
+cd {self.caminho_robo}/{nome_robo}/
 source {self.caminho_venvs}/skeleton/bin/activate
 
 # Execute o script Python
-python {nome_robo}.py
+python3 {nome_robo}.py
         """
 
         #.py
@@ -714,13 +723,11 @@ python {nome_robo}.py
 import sys
 import os
 import re
-import pandas
 from datetime import datetime
-from tqdm import tqdm
 from rich.console import Console
 from rich.theme import Theme
 from rich.traceback import install
-#sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from utilitarios.log import Log
 from utilitarios.timer import Timer
@@ -797,6 +804,9 @@ if __name__ == "__main__":
                 try:
                     with open(skeleton, "w") as f:
                         f.write(script)
+                    if skeleton.endswith('.sh'):
+                        # Set execute permissions on the file
+                        os.chmod(skeleton, 0o755)
                 except Exception as e:
                     print(f"Erro ao criar o arquivo {skeleton}: {e}")
 
@@ -860,7 +870,7 @@ if __name__ == "__main__":
 if __name__ == "__main__":
     #NECROMANCY
     necro = Necromancy()
-
+    
     # Base das pastas e venvs -> venvs = dict{venv: [grimorio]}
     necro.rise_cemetery(necro.caminho_cemiterio, necro.venvs, necro.caminho_venvs, necro.caminho_capelas) 
     # Criar somente venvs -> necro.crypt_polishing
@@ -871,14 +881,14 @@ if __name__ == "__main__":
     
     # Robos (Skeletons) base
     necro.summon_skeletons('Skeletu', necro.caminho_robo, necro.caminho_log) # Robos
-    breakpoint()
+    #breakpoint()
 
-    necro.invoke_demons() #
-    necro.putrefied_ghouls() #
-    necro.bribe_goblins()
+    # necro.invoke_demons() #
+    # necro.putrefied_ghouls() #
+    # necro.bribe_goblins() #
 
     print("Reino da Necromancia Finalizado")
-    breakpoint()
+    #breakpoint()
         
 
 
