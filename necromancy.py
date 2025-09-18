@@ -7,13 +7,13 @@ import subprocess
                                                             # NECROMANCY # 
 class Necromancy():
     def __init__(self):
-        #Cemitery Variables
+        #Graveyard Variables
         is_windows = sys.platform.startswith("win")
         linux_username = os.environ.get("USER")
-        base_caminho = "C:\\cemiterio\\" if is_windows else f"/home/{linux_username}/cemiterio/"
-        self.caminho_cemiterio = os.path.join(base_caminho)
-        self.caminho_capelas = os.path.join(base_caminho, "logs")
-        self.caminho_venvs = os.path.join(base_caminho, "venvs")
+        base_path = "C:\\graveyard\\" if is_windows else f"/home/{linux_username}/graveyard/"
+        self.path_graveyard = os.path.join(base_path)
+        self.path_chapels = os.path.join(base_path, "logs")
+        self.path_venvs = os.path.join(base_path, "venvs")
         if is_windows:
             self.venvs = {'skeleton':['pyautogui', 'psutil', 'pywin32', 'rich', 'tqdm']}#,
                         # 'skeleton_knight':[ "pyautogui", "psutil", "pandas", "openpyxl", "pywin32", 'rich', 'tqdm'], 
@@ -29,8 +29,8 @@ class Necromancy():
                     # 'skeleton_archer': ['pandas', 'openpyxl', 'PyMuPDF', 'rich', 'tqdm'],
                     # 'skeleton_shaman': ['django', 'fastapi', 'taipy', 'flask', 'rich', 'tqdm'],}
         
-        self.cemetery_magic = f"""  
-        RISE MY CEMETERY, I DEMAND IT!              
+        self.graveyard_magic = f"""  
+        RISE MY GRAVEYARD, I DEMAND IT!              
                         _|_
                         _|___
                     /~/~   ~\\
@@ -88,8 +88,8 @@ class Necromancy():
 '''
 
         #Skeletons Variables
-        self.caminho_robo = f"{self.caminho_cemiterio}"
-        self.caminho_log = f"{self.caminho_capelas}"
+        self.path_skeleton = f"{self.path_graveyard}"
+        self.path_log = f"{self.path_chapels}"
         self.skeleton_magic = '''
         APPEAR, MY CHILD! APPEAR!  
 
@@ -176,43 +176,43 @@ class Necromancy():
 
 
     def transmorphing(text):
-        #trocar de windows para linux \\
+        #change from windows to linux \\
         pass
 
     def transmuting(text):
-        #trocar de windows para linux funcao ou caminho inteiro
+        #change from windows to linux
         pass
 
-    def crypt_polishing(self, venvs, caminho_venvs):
-        # Identificar o sistema operacional usando sys.platform
+    def crypt_polishing(self, venvs, path_venvs):
+        # Identify OS with sys.platform
         is_windows = sys.platform.startswith("win")
 
-        # Configurar os comandos e caminhos baseados no sistema operacional
+        # Config paths and commands based on OS
         python_cmd = "python" if is_windows else "python3"
         script_folder = "Scripts" if is_windows else "bin"
         
-        #Criando venvs
+        #Creating venvs
         for venv, grimorio in venvs.items():
-            cripta = os.path.join(caminho_venvs, venv)
+            crypt = os.path.join(path_venvs, venv)
             try:
-                subprocess.run([python_cmd, "-m", "venv", cripta], check=True)
-                print(f"Cripta criada {venv}")
+                subprocess.run([python_cmd, "-m", "venv", crypt], check=True)
+                print(f"crypt created {venv}")
             except subprocess.CalledProcessError as e:
-                print(f"Erro ao criar cripta: {e}")
+                print(f"Error while creating crypt: {e}")
 
-            #Criando o requirements.txt, ativando a venv, atualizando o pip e instalando as dependencias"
+            #Requirements.txt, activating venv, pip upgrade and dependency installing"
             try:
-                requirements_path = os.path.join(cripta, "requirements.txt")
+                requirements_path = os.path.join(crypt, "requirements.txt")
                 with open(requirements_path, "w") as f:
                     f.write("\n".join(grimorio))
                 
-                # Caminho para o executável Python da venv
-                python_executable = os.path.join(cripta, script_folder, "python")
+                # Python executable path
+                python_executable = os.path.join(crypt, script_folder, "python")
                 subprocess.run([python_executable, "-m", "pip", "install", "--upgrade", "pip"], check=True)
                 subprocess.run([python_executable, "-m", "pip", "install", "-r", requirements_path], check=True)
             except subprocess.CalledProcessError as e:
-                    print(f"Erro ao fazer upgrade do pip e instalar dependencias: {e}")
-            print("Upgrade e Dependencias instaladas")
+                    print(f"Error while trying to upgrade pip and dependency installation: {e}")
+            print("Upgrade and Dependencies installed")
 
 
 
@@ -224,17 +224,17 @@ class Necromancy():
     ################################################################################################################################################
     ################################################################################################################################################
 
-                                                            # CEMETERY #  
-    def rise_cemetery(self, caminho_cemiterio, venvs, caminho_venvs, caminho_capelas):
-        #Erguendo o cemitério
-        self.cast_magic(self.cemetery_magic)    
+                                                            # GRAVEYARD #  
+    def rise_graveyard(self, path_graveyard, venvs, path_venvs, path_chapels):
+        #Graveyard Rising
+        self.cast_magic(self.graveyard_magic)    
 
-        pastas = [caminho_cemiterio, caminho_capelas, caminho_venvs]
-        for pasta in pastas:  
-            if not os.path.exists(pasta):    
-                os.makedirs(pasta, exist_ok=True)
+        folders = [path_graveyard, path_chapels, path_venvs]
+        for folder in folders:  
+            if not os.path.exists(folder):    
+                os.makedirs(folder, exist_ok=True)
     
-        self.crypt_polishing(venvs, caminho_venvs)
+        self.crypt_polishing(venvs, path_venvs)
 
 
     ################################################################################################################################################
@@ -246,9 +246,9 @@ class Necromancy():
 
     
                                                             # IMPERIUM #                                                        
-    def IMPerium(self, caminho_cemiterio):
+    def IMPerium(self, path_graveyard):
 
-        utils = os.path.join(caminho_cemiterio, "utilitarios")
+        utils = os.path.join(path_graveyard, "utils")
         self.cast_magic(self.imp_magic)
         
         timer = f"""
@@ -342,7 +342,7 @@ class Log:
             if Log.debug:
                 detailsMachine = Log.getDetailsMachine()
                 if (isinstance(exception, Exception)) or exception == None:
-                    text = detailsMachine + "Erro"
+                    text = detailsMachine + "Error"
                 else:
                     text = detailsMachine + str(exception)
 
@@ -436,7 +436,7 @@ class SeleniumFunctions:
             from webdriver_manager.firefox import GeckoDriverManager
             self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
         else:
-            raise ValueError("Navegador não suportado. Use 'chrome' ou 'firefox'.")
+            raise ValueError("Non existent browser. Use 'chrome' or 'firefox'.")
 
         self.driver.implicitly_wait(implicit_wait)
         self.wait = WebDriverWait(self.driver, implicit_wait)
@@ -469,7 +469,7 @@ class SeleniumFunctions:
             element = self.wait.until(EC.element_to_be_clickable((by, value)))
             element.click()
         except Exception as e:
-            print(f"Erro ao clicar no elemento: {{e}}")
+            print(f"Error while trying to click element: {{e}}")
 
     def scroll_to_element(self, by, value):
         element = self.find_element(by, value)
@@ -499,7 +499,7 @@ class SoupFunctions:
         if response.status_code == 200:
             self.soup = BeautifulSoup(response.text, self.parser)
         else:
-            raise Exception(f"Falha ao carregar a URL: {{url}} (Status {{response.status_code}})")
+            raise Exception(f"URL Failed to load: {{url}} (Status {{response.status_code}})")
 
     def find(self, tag, attrs=None):
         return self.soup.find(tag, attrs=attrs)
@@ -523,7 +523,7 @@ class SoupFunctions:
             time.sleep(interval)
             elapsed_time += interval
         if not element:
-            print(f"Elemento com seletor '{{selector}}' não encontrado em {{timeout}} segundos.")
+            print(f"Element with selector: '{{selector}}' not found in {{timeout}} seconds.")
         return element
 
     def extract_text(self, tag, attrs=None):
@@ -554,22 +554,22 @@ import json
 
 class CryptoHelper:
     def __init__(self, password=None, key=None):
-        # Inicializa o CryptoHelper com uma senha ou chave para criptografia
-        # Se a senha for fornecida, ela será usada para gerar a chave de criptografia
-        # Caso contrário, a chave deve ser fornecida diretamente
-        # Args: password (str): Senha para gerar a chave (opcional); key (bytes): Chave de criptografia diretamente fornecida (opcional)
+        # Initializes CryptoHelper with password or key for cryptography
+        # If Password passed, will be used in cryptography
+        # If not, key must be passed directly
+        # Args: password (str): Password to generate key (optional); key (bytes): Cryptographed Key directly passed (optional)
 
         if password:
             self.key = self.generate_key_from_password(password)
         elif key:
             self.key = key
         else:
-            raise ValueError("É necessário fornecer uma senha ou chave.")
+            raise ValueError("Key or Password necessary.")
 
     def generate_key_from_password(self, password, salt=None):
-        # Gera uma chave de criptografia a partir de uma senha, utilizando PBKDF2
-        # Args: password (str): Senha para gerar a chave; salt (bytes): Sal (opcional). Se não fornecido, será gerado automaticamente
-        # Returns: bytes: A chave gerada
+        # GGenerates cryptographed key based on a password, using PBKDF2
+        # Args: password (str): Password to generate key; salt (bytes): Sal (optional). If not passed, automatically generated
+        # Returns: bytes: Generated Key
 
         if salt is None:
             salt = os.urandom(16)
@@ -583,11 +583,11 @@ class CryptoHelper:
         return kdf.derive(password.encode())
 
     def encrypt(self, data):
-        # Criptografa os dados usando AES em modo CBC
-        # Args: data (str): Dados a serem criptografados
-        # Returns: str: Dados criptografados em base64
+        # Encrypts data using AES in CBC mode
+        # Args: data (str): Data to be encrypted
+        # Returns: str: Cryptographed data in base64
 
-        iv = os.urandom(16)  # Vetor de inicialização aleatório
+        iv = os.urandom(16)  # Random Initialization Vector
         cipher = Cipher(algorithms.AES(self.key), modes.CBC(iv), backend=default_backend())
         encryptor = cipher.encryptor()
         padded_data = self.pad(data.encode())
@@ -595,9 +595,9 @@ class CryptoHelper:
         return base64.b64encode(iv + ciphertext).decode()
 
     def decrypt(self, encrypted_data):
-        # Descriptografa os dados usando AES em modo CBC
-        # Args: encrypted_data (str): Dados criptografados em base64
-        # Returns: str: Dados descriptografados
+        # Decrypts data using AES in CBC mode
+        # Args: encrypted_data (str): Encrypted data in base64
+        # Returns: str: Decrypted data
 
         encrypted_data = base64.b64decode(encrypted_data.encode())
         iv = encrypted_data[:16]
@@ -608,40 +608,40 @@ class CryptoHelper:
         return self.unpad(decrypted_data).decode()
 
     def pad(self, data):
-        # Aplica o padding PKCS7 para que os dados fiquem múltiplos de 16 bytes
-        # Args: data (bytes): Dados a serem preenchidos
-        # Returns: bytes: Dados com padding aplicado
+        # Applies PKCS7 padding to data
+        # Args: data (bytes): Data to be padded
+        # Returns: bytes: Data with padding
 
         pad_length = 16 - len(data) % 16
         return data + bytes([pad_length] * pad_length)
 
     def unpad(self, data):
-        # Remove o padding PKCS7 dos dados
-        # Args: data (bytes): Dados com padding
-        # Returns: bytes: Dados sem padding
+        # Removes PKCS7 padding from data
+        # Args: data (bytes): Data with padding
+        # Returns: bytes: Data without padding
 
         pad_length = data[-1]
         return data[:-pad_length]
 
     def save_passwords_to_file(self, password_data, filename="passwords.json"):
-        # Salva as senhas criptografadas em um arquivo JSON
-        # Args: password_data (dict): Dicionário de senhas a serem salvas; filename (str): Nome do arquivo de destino
+        # Saves encrypted passwords to a JSON file
+        # Args: password_data (dict): Passwords to be saved; filename (str): Filename of the JSON file
 
         encrypted_passwords = {{key: self.encrypt(value) for key, value in password_data.items()}}
         with open(filename, "w") as file:
             json.dump(encrypted_passwords, file)
 
     def load_passwords_from_file(self, filename="passwords.json"):
-        # Carrega e descriptografa senhas de um arquivo JSON
-        # Args: filename (str): Nome do arquivo de onde as senhas serão carregadas
-        # Returns: dict: Dicionário de senhas descriptografadas
+        # Loads encrypted passwords from a JSON file and decrypts them
+        # Args: filename (str): Filename of the JSON file
+        # Returns: dict: Decrypted passwords
         
         with open(filename, "r") as file:
             encrypted_passwords = json.load(file)
         return {{key: self.decrypt(value) for key, value in encrypted_passwords.items()}}
 """
 
-        #Trazendo Imps
+        #Rising Imps
         if not os.path.exists(utils):    
             os.makedirs(utils)
 
@@ -656,8 +656,8 @@ class CryptoHelper:
                 with open(imp, "w") as f:
                     f.write(script)
             except Exception as e:
-                print(f'Problema ao criar {imp}: {e}')
-        print("Imps chamados")
+                print(f'Problem to rise {imp}: {e}')
+        print("Imps summoned!")
 
     ################################################################################################################################################
     ################################################################################################################################################
@@ -668,9 +668,9 @@ class CryptoHelper:
 
                                                             # SKELETONS #
     
-    def summon_skeletons(self, nome_robo, caminho_robo, caminho_log):
-        caminho_log = os.path.join(caminho_log, nome_robo)
-        caminho_robo = os.path.join(caminho_robo, nome_robo)
+    def summon_skeletons(self, name_skeleton, path_skeleton, path_log):
+        path_log = os.path.join(path_log, name_skeleton)
+        path_skeleton = os.path.join(path_skeleton, name_skeleton)
         
         self.cast_magic(self.skeleton_magic)
             
@@ -679,41 +679,41 @@ class CryptoHelper:
 @CHCP 1252 > NUL
 @echo off
 
-cd {caminho_robo}\\
-set PYTHONPATH={caminho_robo}\\
+cd {path_skeleton}\\
+set PYTHONPATH={path_skeleton}\\
 
-set "ROBOT_NAME={nome_robo}"
-set "ROBOT_LOG={caminho_log}\\"
-set INPUTS={caminho_robo}\\INPUTS\\
-set OUTPUTS={caminho_robo}\\OUTPUTS\\
-set LOCAL_PATH=C:\\LOCAL_ROBOT_FILES\\{nome_robo}\\
+set "SKELETON_NAME={name_skeleton}"
+set "SKELETON_LOG={path_log}\\"
+set INPUTS={path_skeleton}\\INPUTS\\
+set OUTPUTS={path_skeleton}\\OUTPUTS\\
+set LOCAL_PATH=C:\\LOCAL_SKELETON_FILES\\{name_skeleton}\\
 
-echo Variaveis de ambiente OK
+echo Environment Variables OK
 
 %SystemRoot%\\System32\\taskkill.exe /IM python.exe
 REM taskkill /IM python.exe /F
 
-{self.caminho_venvs}\\skeleton\\Scripts\\Activate.bat & python {nome_robo}.py
+{self.path_venvs}\\skeleton\\Scripts\\Activate.bat & python {name_skeleton}.py
         """
 
         #.sh
         skeleton_sh = f"""
 #!/bin/bash
 
-export ROBOT_NAME={nome_robo}/
-export ROBOT_LOG={caminho_log}/
-export INPUTS={caminho_robo}/INPUTS/
-export OUTPUTS={caminho_robo}/OUTPUTS/
-export LOCAL_PATH={caminho_robo}/LOCAL_ROBOT_FILES/
+export SKELETON_NAME={name_skeleton}/
+export SKELETON_LOG={path_log}/
+export INPUTS={path_skeleton}/INPUTS/
+export OUTPUTS={path_skeleton}/OUTPUTS/
+export LOCAL_PATH={path_skeleton}/LOCAL_SKELETON_FILES/
 
-echo "Variaveis de ambiente OK"
+echo "Environment Variables OK"
 
 pkill python3
-cd {self.caminho_robo}/{nome_robo}/
-source {self.caminho_venvs}/skeleton/bin/activate
+cd {self.path_skeleton}/{name_skeleton}/
+source {self.path_venvs}/skeleton/bin/activate
 
-# Execute o script Python
-python3 {nome_robo}.py
+# Execute your Python script
+python3 {name_skeleton}.py
         """
 
         #.py
@@ -729,8 +729,8 @@ from rich.theme import Theme
 from rich.traceback import install
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from utilitarios.log import Log
-from utilitarios.timer import Timer
+from utils.log import Log
+from utils.timer import Timer
 
 ###### Console customization ######
 install()
@@ -743,17 +743,17 @@ custom_theme = Theme({{
 console = Console(theme=custom_theme)
 
 
-__NOME_ROBO     = os.environ.get("ROBOT_NAME")
+__NAME_SKELETON = os.environ.get("SKELETON_NAME")
 __DATA          = datetime.now().strftime("%Y-%m-%d")
-__CAMINHO_LOG   = os.environ.get("ROBOT_LOG")
+__PATH_LOG      = os.environ.get("SKELETON_LOG")
 __INPUTS        = os.environ.get("INPUTS")
 __OUTPUTS       = os.environ.get("OUTPUTS")
 __LOCAL_PATH    = os.environ.get("LOCAL_PATH")
 
-Log(pathLog=__CAMINHO_LOG)
+Log(pathLog=__PATH_LOG)
 
 Log.info(f"Criando pastas, configuracoes e verificacoes")
-pastas = [__CAMINHO_LOG, __INPUTS, __OUTPUTS, __LOCAL_PATH]
+pastas = [__PATH_LOG, __INPUTS, __OUTPUTS, __LOCAL_PATH]
 for pasta in pastas:
     if not os.path.exists(pasta):
         os.makedirs(pasta)
@@ -761,20 +761,20 @@ for pasta in pastas:
 
         
 def main():
-    Log.info(f"Comecando execucao do robo {{__NOME_ROBO}}")
+    Log.info(f"Skeleton rising {{__NAME_SKELETON}}")
     timer = Timer()
     try:
-        console.print(f"Comecando execucao do robo {{__NOME_ROBO}}", style="info")
+        console.print(f"Skeleton rising {{__NAME_SKELETON}}", style="info")
         breakpoint()
 
     
-        Log.info(f"Finalizando execucao do robo {{__NOME_ROBO}}")
+        Log.info(f"Skeleton descending {{__NAME_SKELETON}}")
         Log.info(f"{{timer.elapsed}}ms")
-        console.print(f"Finalizando execucao do robo {{__NOME_ROBO}}", style="success")
+        console.print(f"Skeleton descending {{__NAME_SKELETON}}", style="success")
     except Exception as e:
-        Log.error(f"Erro no {{__NOME_ROBO}}: " + str(e))
-        console.print(f"Erro no {{__NOME_ROBO}}: " + str(e), style="error")
-        raise Exception(f"Erro no {{__NOME_ROBO}}")
+        Log.error(f"Error with {{__NAME_SKELETON}}: " + str(e))
+        console.print(f"Error with {{__NAME_SKELETON}}: " + str(e), style="error")
+        raise Exception(f"Error with {{__NAME_SKELETON}}")
 
         
 
@@ -782,19 +782,19 @@ if __name__ == "__main__":
     main()
         """
         
-        pastas = [caminho_robo, caminho_log]
+        pastas = [path_skeleton, path_log]
         for pasta in pastas:
             if not os.path.exists(pasta):
                 os.makedirs(pasta, exist_ok=True)
         
         #Criando o .bat, .sh e .py
         skeletons_dict = {
-            os.path.join(caminho_robo, f"{nome_robo}.bat"): skeleton_bat,
-            os.path.join(caminho_robo, f"{nome_robo}.sh"): skeleton_sh,
-            os.path.join(caminho_robo, f"{nome_robo}.py"): skeleton_py,
-            # f"{caminho_robo}\\{nome_robo}.bat": skeleton_bat,
-            # f"{caminho_robo}/{nome_robo}.sh": skeleton_sh,
-            # f"{caminho_robo}\\{nome_robo}.py": skeleton_py
+            os.path.join(path_skeleton, f"{name_skeleton}.bat"): skeleton_bat,
+            os.path.join(path_skeleton, f"{name_skeleton}.sh"): skeleton_sh,
+            os.path.join(path_skeleton, f"{name_skeleton}.py"): skeleton_py,
+            # f"{path_skeleton}\\{name_skeleton}.bat": skeleton_bat,
+            # f"{path_skeleton}/{name_skeleton}.sh": skeleton_sh,
+            # f"{path_skeleton}\\{name_skeleton}.py": skeleton_py
         }
 
         for skeleton, script in skeletons_dict.items():
@@ -808,14 +808,14 @@ if __name__ == "__main__":
                         # Set execute permissions on the file
                         os.chmod(skeleton, 0o755)
                 except Exception as e:
-                    print(f"Erro ao criar o arquivo {skeleton}: {e}")
+                    print(f"Error while creating file {skeleton}: {e}")
 
 
         # Abre as pastas
-        # os.startfile(self.caminho_robo)
-        # os.startfile(self.caminho_log)
+        # os.startfile(self.path_skeleton)
+        # os.startfile(self.path_log)
 
-        print(f"Skeleton Sumonado: {nome_robo}")
+        print(f"Skeleton Sumonado: {name_skeleton}")
         
 
     ################################################################################################################################################
@@ -872,22 +872,22 @@ if __name__ == "__main__":
     necro = Necromancy()
     
     # Base das pastas e venvs -> venvs = dict{venv: [grimorio]}
-    necro.rise_cemetery(necro.caminho_cemiterio, necro.venvs, necro.caminho_venvs, necro.caminho_capelas) 
-    # Criar somente venvs -> necro.crypt_polishing
+    necro.rise_graveyard(necro.path_graveyard, necro.venvs, necro.path_venvs, necro.path_chapels) 
+    # venvs creation only -> necro.crypt_polishing
     # venvs = {'skeleto_bard': ['librosa', 'pyaudio', 'audioread'], 'skeleto_druid': ['scikit-image', 'SciPy', 'OpenCV']}
     
-    # Scirpts Utilitarios
-    necro.IMPerium(necro.caminho_cemiterio) 
+    # Scirpts Utils
+    necro.IMPerium(necro.path_graveyard) 
     
-    # Robos (Skeletons) base
-    necro.summon_skeletons('Skeletu', necro.caminho_robo, necro.caminho_log) # Robos
+    # Skeletons (Bots) base
+    necro.summon_skeletons('Skeletu', necro.path_skeleton, necro.path_log)
     #breakpoint()
 
     # necro.invoke_demons() #
     # necro.putrefied_ghouls() #
     # necro.bribe_goblins() #
 
-    print("Reino da Necromancia Finalizado")
+    print("Necromancy Kingdom summoned!")
     #breakpoint()
         
 
